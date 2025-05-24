@@ -1,32 +1,33 @@
-name: Fetch FRED Data
+name: Fetch FRED Data Daily
 
 on:
   schedule:
-    - cron: '0 16 * * *' 
-  workflow_dispatch:     
+    - cron: '0 16 * * *'  # UTC 16:00 = GMT+8 0:00 (每天0點抓)
+  workflow_dispatch:  # 允許手動觸發
 
 jobs:
-  fetch:
+  fetch-fred:
     runs-on: ubuntu-latest
+    env:
+      FRED_API_KEY: ${{a5ed1058170be50b5092b6cd0f669117}}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v3
 
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: '18'
 
       - name: Install dependencies
-        run: npm install
+        run: npm install node-fetch@2
 
-      - name: Run script
-        run: node scripts/fetch-fred.js
+      - name: Run fetch-fred.js to get data
+        run: node fetch-fred.js
 
-      - name: Commit updated data
+      - name: Commit and push data
         run: |
-          git config user.name "github-actions"
-          git config user.email "actions@github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add data/us_market.json
-          git commit -m "Update FRED data"
+          git commit -m "每日自動更新 FRED 市場資料"
           git push
