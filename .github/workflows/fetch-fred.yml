@@ -1,0 +1,32 @@
+name: Fetch FRED Data
+
+on:
+  schedule:
+    - cron: '0 16 * * *' 
+  workflow_dispatch:     
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run script
+        run: node scripts/fetch-fred.js
+
+      - name: Commit updated data
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add data/us_market.json
+          git commit -m "Update FRED data"
+          git push
