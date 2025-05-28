@@ -1,0 +1,47 @@
+name: Upload Test Data to Firestore (us_market/latest)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  upload-test-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install firebase-admin
+        run: npm install firebase-admin
+
+      - name: Upload Test Data to Firestore
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          node <<'EOF'
+          const admin = require('firebase-admin');
+
+          const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+
+          admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount)
+          });
+
+          const db = admin.firestore();
+
+          async function uploadTestData() {
+            const testData = {
+              cpi: 3.2,
+              rate: 5.25,
+              oil: 78.3,
+              updatedAt: new Date().toISOString()
+            };
+
+            await db.collection('us_market').doc('latest').set(testData);
+            console.log("✅ 成功上傳測試資料到 us_market/latest");
+          }
+
+          uploadTestData().catch(console.error);
+          EOF
