@@ -23,6 +23,6 @@ jobs:
 
       - name: Fetch FRED Data and Upload to Firestore
         env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.AIzaSyCveAp3D6ySKTuC_Vfu8IZGhvkx1GKEkOE }}
-          FRED_API_KEY: ${{ secrets.a5ed1058170be50b5092b6cd0f669117 }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
         run: node updateFirestore.js
