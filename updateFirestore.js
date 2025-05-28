@@ -12,8 +12,9 @@ async function fetchFREDData() {
   const apiKey = process.env.FRED_API_KEY;
   const endpoints = {
     cpi: `https://api.stlouisfed.org/fred/series/observations?series_id=CPIAUCNS&api_key=${apiKey}&file_type=json`,
-    interest: `https://api.stlouisfed.org/fred/series/observations?series_id=FEDFUNDS&api_key=${apiKey}&file_type=json`,
-    oil: `https://api.stlouisfed.org/fred/series/observations?series_id=DCOILWTICO&api_key=${apiKey}&file_type=json`
+    oil: `https://api.stlouisfed.org/fred/series/observations?series_id=DCOILWTICO&api_key=${apiKey}&file_type=json`,
+    rate: `https://api.stlouisfed.org/fred/series/observations?series_id=FEDFUNDS&api_key=${apiKey}&file_type=json`
+    
   };
 
   const results = {};
