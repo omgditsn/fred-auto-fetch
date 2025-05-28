@@ -62,7 +62,7 @@ jobs:
           async function uploadToFirestore() {
             const data = await fetchFREDData();
             const now = new Date();
-            const docRef = db.collection('fred-data').doc('latest');
+            const docRef = db.collection('us_market').doc('latest');
 
             await docRef.set({
               ...data,
