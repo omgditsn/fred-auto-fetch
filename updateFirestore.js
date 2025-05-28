@@ -1,16 +1,18 @@
 const axios = require('axios');
 const admin = require('firebase-admin');
 
-const serviceAccount = JSON.parse(process.env.AIzaSyCveAp3D6ySKTuC_Vfu8IZGhvkx1GKEkOE);
-admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount)
+});
 
 const db = admin.firestore();
 
 async function fetchFREDData() {
-  const apiKey = process.env.a5ed1058170be50b5092b6cd0f669117;
+  const apiKey = process.env.FRED_API_KEY;
   const endpoints = {
     cpi: `https://api.stlouisfed.org/fred/series/observations?series_id=CPIAUCNS&api_key=${apiKey}&file_type=json`,
-    rate: `https://api.stlouisfed.org/fred/series/observations?series_id=FEDFUNDS&api_key=${apiKey}&file_type=json`,
+    interest: `https://api.stlouisfed.org/fred/series/observations?series_id=FEDFUNDS&api_key=${apiKey}&file_type=json`,
     oil: `https://api.stlouisfed.org/fred/series/observations?series_id=DCOILWTICO&api_key=${apiKey}&file_type=json`
   };
 
