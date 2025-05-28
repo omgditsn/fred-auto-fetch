@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>供需模型比較模擬器</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>供需模型比較：你 vs 美國市場</h1>
+  <h3>(美國市場資料每日0:00(GMT+8)更新，歡迎隨時上線查看)</h3>
+
+  <div class="sliders">
+    <label>CPI(累計指數): <input type="range" id="cpi" min="315" max="375" step="0.1" value="5"><span id="cpiVal">5</span></label>
+    <label>利率: <input type="range" id="rate" min="0" max="10" step="0.1" value="5"><span id="rateVal">5</span></label>
+    <label>油價: <input type="range" id="oil" min="50" max="150" step="1" value="100"><span id="oilVal">100</span></label>
+  </div>
+
+  <div class="canvas-container">
+    <div>
+      <h2>你的市場</h2>
+      <canvas id="market" width="400" height="300"></canvas>
+      <p>均衡價格（數量）: <span id="equilibrium"></span></p>
+    </div>
+    <div>
+      <h2>美國市場</h2>
+      <canvas id="usMarket" width="400" height="300"></canvas>
+      <p>美國均衡價格（數量）: <span id="usEquilibrium"></span></p>
+    </div>
+  </div>
+
+  <div id="comparison"></div>
+
+  <!-- ✅ 僅使用 type="module"，並使用 import 引入 CDN 模組 -->
+  <script type="module" src="script.js"></script>
+
+</body>
+</html>
