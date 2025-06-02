@@ -88,8 +88,8 @@ function calculateParams(cpiInflationRate, rate, oil) {
   let sIntercept = 30;
   let sSlope = 0.4;
 
-  if (cpiInflationRate > 3) sIntercept -= (cpiInflationRate - 20) * 5;
-  if (cpiInflationRate < 2) sIntercept += (2 - cpiInflationRate) * 100;
+  if (cpiInflationRate > 3) sIntercept += (cpiInflationRate - 20) * 5;
+  if (cpiInflationRate < 2) sIntercept -= (2 - cpiInflationRate) * 100;
 
   if (rate > 3) sSlope += (rate - 3) * 0.02;
   if (rate < 1) sSlope -= (1 - rate) * 0.02;
